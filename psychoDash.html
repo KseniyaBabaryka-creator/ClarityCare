@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/dashboard.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<title>Dashboard</title>
+</head>
+<body>
+	<header class="bg-light py-3">
+		<nav class="navbar navbar-expand-lg navbar-light container d-flex justify-content-between">
+			<a href="#" class="navbar-brand">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="nav__logo" width="50">
+			</a>
+			<div class="header__btns">
+				<a href="index.html" class="btn btn-primary ms-3">Home</a>
+				<a href="index.html" class="btn btn-primary ms-3" data-logout>Log Out</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				 <form id="profileForm">
+					<div class="modal-header">
+					  <h5 class="modal-title" id="profileModalLabel">Complete Your Profile</h5>
+					</div>
+					<div class="modal-body">
+					  <div class="mb-3">
+						 <label for="experience" class="form-label">Experience (years)</label>
+						 <input type="number" class="form-control" id="experience" name="experience" required>
+					  </div>
+					  <div class="mb-3">
+						<label for="specialization" class="form-label">Specialization</label>
+						<select class="form-control" id="specialization" name="specialization" required>
+							<option value="" disabled selected>Select specialization</option>
+							<option value="Anxiety">Anxiety</option>
+							<option value="Depression">Depression</option>
+							<option value="Stress Management">Stress Management</option>
+							<option value="Family Therapy">Family Therapy</option>
+							<option value="Relationship Counseling">Relationship Counseling</option>
+							<option value="Career Guidance">Career Guidance</option>
+						</select>
+					</div>
+					  <div class="mb-3">
+						 <label for="motto" class="form-label">Motto</label>
+						 <input type="text" class="form-control" id="motto" name="motto" required>
+					  </div>
+					  <div class="mb-3">
+						 <label for="profilePhoto" class="form-label">Profile Photo</label>
+						 <input type="file" class="form-control" id="profilePhoto" name="profilePhoto" accept="image/*" required>
+					  </div>
+					</div>
+					<div class="modal-footer">
+					  <button type="submit" class="btn btn-primary">Save Profile</button>
+					</div>
+				 </form>
+			  </div>
+			</div>
+		</div>
+
+		<div class="row gap-4 justify-content-between">
+
+			<article class="article__info col-md-3 p-4">
+				<img src="" alt="Psychologist photo" class="info__photo img-fluid">
+				<p class="info__name"></p>
+				<p class="info__item">Experience: <span class="exp"></span></p>
+				<p class="info__item d-flex flex-wrap justify-content-between">Specialization: <span class="spec"></span></p>
+				<p class="info__item">Rating: <span class="rating"></span> <i class="bi bi-star-fill"></i></p>
+				<p class="motto"></p>
+			</article>
+
+			<div class="modal fade" id="editTermsModal" tabindex="-1" aria-labelledby="editTermsModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					 <div class="modal-content">
+						  <div class="modal-header">
+								<h5 class="modal-title" id="editTermsModalLabel">Edit Free Terms</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						  </div>
+						  <div class="modal-body">
+								<div id="termsContainer">
+									 <!-- Здесь будут генерироваться input'ы для редактирования -->
+								</div>
+								<button id="addTermBtn" class="btn btn-outline-primary mt-3">Add Term</button>
+						  </div>
+						  <div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+								<button id="saveTermsBtn" class="btn btn-primary">Save Changes</button>
+						  </div>
+					 </div>
+				</div>
+		  </div>
+		  
+	
+			<article class="consultations col-md-3 p-4">
+				<h3 class="article__title">Free terms</h3>
+				<ul class="cons__list">
+				</ul>
+				<button class="cons__btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTermsModal">Edit</button>
+			</article>
+	
+			<article class="completed col-md-3 p-4">
+				<h3 class="article__title">Completed sessions</h3>
+				<ul class="completed__list">
+					<!-- <li class="completed__list-item">
+						<p class="completed__client">Anna Petrova</p>
+						<span class="completed__date">20.01.2025</span>
+						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
+						<p class="completed__time">11:00 - 12:00</p>
+					</li>
+					<li class="completed__list-item">
+						<p class="completed__client">Anna Petrova</p>
+						<span class="completed__date">20.01.2025</span>
+						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
+						<p class="completed__time">11:00 - 12:00</p>
+					</li>
+					<li class="completed__list-item">
+						<p class="completed__client">Anna Petrova</p>
+						<span class="completed__date">20.01.2025</span>
+						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
+						<p class="completed__time">11:00 - 12:00</p>
+					</li>
+					<li class="completed__list-item">
+						<p class="completed__client">Anna Petrova</p>
+						<span class="completed__date">20.01.2025</span>
+						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
+						<p class="completed__time">11:00 - 12:00</p>
+					</li> -->
+				</ul>
+				<button class="completed__btn btn btn-primary">Show more</button>
+			</article>
+	
+			<article class="upcoming col-md-3 p-4">
+				<h3 class="article__title">Upcoming sessions</h3>
+				<ul class="upcoming__list">
+					<!-- <li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2023</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>
+					</li>
+					<li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2025</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>	
+					</li>
+					<li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2025</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>
+					</li>
+					<li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2025</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>
+					</li>
+					<li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2025</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>
+					</li>
+					<li class="upcoming__list-item">
+						<p class="upcoming__client">Anna Petrova</p>
+						<div class="upcoming__info">
+							<span class="upcoming__date">20.01.2025</span>
+							<p class="upcoming__time">11:00 - 12:00</p>
+						</div>
+					</li> -->
+				</ul>
+				<button class="upcoming__btn btn btn-primary">Show more</button>
+			</article>
+		</div>
+	</main>
+
+
+	<footer class="footer bg-dark text-light py-3">
+		<div class="container text-center">
+			<div class="footer__naming mb-4">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="footer__logo" width="50">
+			</div>
+			<div class="footer__contacts mb-4">
+				<ul class="socials__list list-inline">
+					<li class="social inst list-inline-item"><i class="bi bi-instagram"></i></li>
+					<li class="social x list-inline-item"><i class="bi bi-twitter-x"></i></li>
+					<li class="social link list-inline-item"><i class="bi bi-linkedin"></i></li>
+					<li class="social facebook list-inline-item"><i class="bi bi-facebook"></i></li>
+				</ul>
+			</div>
+			<div class="copyright mt-4">
+				<p class="small">© 2025 ClarityCare. All Rights Reserved.</p>
+				<p class="small">This is a student project and does not represent real medical services.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+
+		const	logOutBtn = document.querySelector('[data-logout]');
+
+		logOutBtn.addEventListener('click', () => {
+			deleteCookie('email');
+			deleteCookie('role');
+		})
+
+		const profileModal = new bootstrap.Modal(document.getElementById('profileModal'),{
+			backdrop: 'static',
+			keyboard: false
+			});
+
+		if(!isProfileComplete()){
+			profileModal.show();
+		}
+
+		const currentUserEmail = getCookie('email');
+		const users = JSON.parse(localStorage.getItem('users')) || [];
+
+		const currentUser = users.find(user => user.email === currentUserEmail);
+
+		if(currentUser && currentUser.role === 'psychologist'){
+			document.querySelector('.info__name').textContent = `Dr. ${currentUser.name}`
+		}
+
+		loadProfile(currentUser.name);
+
+		document.getElementById('profileForm').addEventListener('submit', (e) => {
+			e.preventDefault();
+
+			const form = document.getElementById('profileForm');
+			const formData = new FormData(form);
+
+			if (!formData.get('profilePhoto') || formData.get('profilePhoto').size === 0) {
+				alert("Пожалуйста, выберите фото перед сохранением.");
+				return;
+			}
+
+			saveProfile(formData, currentUser.name)
+				.then(() => {
+
+					const profile = JSON.parse(localStorage.getItem('profile'));
+
+					profileModal.hide();
+					
+					loadProfile();
+			})
+			.catch(error => console.error("Error on saving profile:", error));
+		});
+
+		updateTerms(JSON.parse(localStorage.getItem('terms')) || []);
+
+
+		const editTermsModal = new bootstrap.Modal(document.getElementById("editTermsModal"));
+
+		document.querySelector('.cons__btn').addEventListener('click', () => {
+			loadTerms();
+			editTermsModal.show();
+		});
+
+		document.getElementById("addTermBtn").addEventListener('click', () => addTermField());
+
+		document.getElementById('saveTermsBtn').addEventListener('click', () => {
+			saveTerms();
+			editTermsModal.hide();
+		
+		});
+
+		renderCompleted(currentUser.name);
+
+		renderUpcoming(currentUser.name);
+
+		hideSessions(document.querySelectorAll('.completed__list-item'));
+		const upcomingSessions = document.querySelectorAll('.upcoming__list-item');
+		hideSessions(upcomingSessions);
+
+		const compBtn = document.querySelector('.completed__btn');
+		const upcBtn = document.querySelector('.upcoming__btn');
+
+		compBtn.addEventListener('click', () => {
+			compBtn.classList.toggle('shown');
+			if(compBtn.classList.contains('shown')){
+				compBtn.textContent = 'Hide';
+				showSessions(document.querySelectorAll('.completed__list-item'), 'grid');
+			} else {
+				compBtn.textContent = 'Show more';
+				hideSessions(document.querySelectorAll('.completed__list-item'));
+			}
+		})
+
+		upcBtn.addEventListener('click', () => {
+			upcBtn.classList.toggle('shown');
+			if(upcBtn.classList.contains('shown')){
+				upcBtn.textContent = 'Hide';
+				showSessions(document.querySelectorAll('.upcoming__list-item'), 'flex');
+			} else {
+				upcBtn.textContent = 'Show more';
+				hideSessions(document.querySelectorAll('.upcoming__list-item'));
+			}
+		})
+
+		})
+	</script>
+	<script src="js/cookieManager.js"></script>
+	<script src="js/dashboard.js"></script>
+	<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

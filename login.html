@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/login.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<script src="js/cookieManager.js"></script>
+	<script src="js/registration.js"></script>
+	<title>Registration</title>
+</head>
+<body>
+	<header class="bg-light py-3">
+		<nav class="navbar navbar-expand-lg navbar-light container d-flex justify-content-between">
+			<a href="#" class="navbar-brand">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="nav__logo" width="50">
+			</a>
+			<a href="index.html" class="btn btn-primary ms-3">Home</a>
+			
+		</nav>
+	</header>
+
+	<main>
+		<section class="container py-5">
+			<div class="form__container">
+				<form class="form__login">
+					<h2 class="form__title">Login</h2>
+					  <input type="email" class="form-control mb-3" id="loginEmail" aria-describedby="emailHelp" placeholder="Email">
+					  <input type="password" class="form-control mb-3" id="loginPassword" placeholder="Password">
+					<button type="submit" class="btn btn-primary">Log In</button>
+				 </form>
+	
+				 <form class="form__register">
+					<h2 class="form__title">Register</h2>
+					<div class="radio-inputs">
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" data-client checked>
+							<label class="form-check-label" for="flexRadioDefault1">
+							  Client
+							</label>
+						 </div>
+						 <div class="form-check">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+							<label class="form-check-label" for="flexRadioDefault2">
+							  Psychologist
+							</label>
+						 </div>
+					</div>
+					  <input type="text" class="form-control mb-3" id="name" placeholder="Full name" required>
+					  <input type="email" class="form-control mb-3" id="email" aria-describedby="emailHelp" placeholder="Email" required>
+					  <input type="password" class="form-control mb-3" id="password" placeholder="Password" required>
+					<button type="submit" class="btn btn-primary">Register</button>
+				 </form>
+			</div>
+			</section>
+	</main>
+
+
+	<footer class="footer bg-dark text-light py-3">
+		<div class="container text-center">
+			<div class="footer__naming mb-4">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="footer__logo" width="50">
+			</div>
+			<div class="footer__contacts mb-4">
+				<ul class="socials__list list-inline">
+					<li class="social inst list-inline-item"><i class="bi bi-instagram"></i></li>
+					<li class="social x list-inline-item"><i class="bi bi-twitter-x"></i></li>
+					<li class="social link list-inline-item"><i class="bi bi-linkedin"></i></li>
+					<li class="social facebook list-inline-item"><i class="bi bi-facebook"></i></li>
+				</ul>
+			</div>
+			<div class="copyright mt-4">
+				<p class="small">© 2025 ClarityCare. All Rights Reserved.</p>
+				<p class="small">This is a student project and does not represent real medical services.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script>
+
+		document.addEventListener('DOMContentLoaded', () => {
+
+			if(JSON.parse(localStorage.getItem('users')) == []){addToLocalStorage()};
+
+			console.log(JSON.parse(localStorage.getItem('users')));
+	
+			const registrationForm = document.querySelector('.form__register');
+	
+			registrationForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				const checked = registrationForm.querySelector('input[name="flexRadioDefault"]:checked');
+				registerUser({
+					name: registrationForm.querySelector('input[id=name]').value,
+					email: registrationForm.querySelector('input[id=email]').value,
+					password: registrationForm.querySelector('input[id=password]').value,
+					role: document.querySelector(`label[for="${checked.id}"]`).textContent.trim().toLowerCase()
+				}).then(result => {
+					if(result){
+							alert('Registration succeded! Please Log In now.');
+							registrationForm.querySelectorAll('input').forEach(input => {
+								input.value = '';
+							})
+					} 
+				}).catch(error => {
+					alert(error.message); 
+				})
+			});
+
+	
+			const loginForm = document.querySelector('.form__login');
+	
+			loginForm.addEventListener('submit', (e) => {
+				e.preventDefault();
+				loginUser(
+					loginForm.querySelector('input[id=loginEmail]').value,
+					loginForm.querySelector('input[id=loginPassword]').value
+				).then(result => {
+					if(result){
+					location.href = 'index.html'; 
+				} else alert('Wrong email or password. Please, try again.')
+				})
+	
+				
+			})
+		})
+		
+	</script>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

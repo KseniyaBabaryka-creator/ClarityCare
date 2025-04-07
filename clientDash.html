@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/client.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<title>Dashboard</title>
+</head>
+<body>
+	<header class="bg-light py-3">
+		<nav class="navbar navbar-expand-lg navbar-light container d-flex justify-content-between">
+			<a href="#" class="navbar-brand">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="nav__logo" width="50">
+			</a>
+			<div class="header__btns">
+				<a href="index.html" class="btn btn-primary ms-3">Home</a>
+				<a href="index.html" class="btn btn-primary ms-3" data-logout>Log Out</a>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<div class="container">
+			<ul class="nav nav-tabs py-3" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+				  <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Profile</button>
+				</li>
+				<li class="nav-item" role="presentation">
+				  <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Completed</button>
+				</li>
+				<li class="nav-item" role="presentation">
+				  <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Upcoming</button>
+				</li>
+			 </ul>
+			 <div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+					<div class="container">
+						<div class="row">
+							<div class="col-8">
+								<div class="profile">
+									<div class="profile__photo">
+										<img src="images/default.png" alt="Client photo" class="profile__image img-fluid">
+										<input type="file" id="photoInput" accept="image/*" style="display:none;">
+										<label for="photoInput" class="profile__upload">Change profile photo</label>
+									</div>
+									<div class="profile__info">
+										<p class="profile__login"></p>
+										<form class="profile__form">
+											<label for="name" class="form-label">Your name</label>
+											<input type="text" class="form-control" id="name">
+											<label for="password" class="form-label">Your password</label>
+											<input type="password" class="form-control" id="password">
+											<label for="passwordCheck" class="form-label">Check password</label>
+											<input type="password" class="form-control" id="passwordCheck">
+											<button type="submit" class="btn btn-primary save-btn">Save changes</button>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="col-4 d-flex flex-column">
+								<div class="row">
+									<div class="col-12">
+										<div class="card book-card text-left">
+											<h3 class="card__title">Book a session</h3>
+											<p class="card__text">Get advice on any of 10 areas of mental and physical health from professionals with a confirmed level of expertise.</p>
+											<a href="index.html#therapists" class="card__btn">More info <span class="arr">&rarr;</span></a>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-auto">
+									<div class="col-12">
+										<div class="card history-card text-left">
+											<h3 class="card__title">History
+												of consultations</h3>
+											<p class="card__text">The entire history of consultations received with specialists and completed programs is saved in your personal account.</p>
+											<button class="card__btn history-btn">More info <span class="arr">&rarr;</span></button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+					<div class="sessions__container completed-container">
+						<!-- <div class="session__card completed">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+							</div>
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<div class="session__review">5 <i class="bi bi-star-fill"></i></div>
+							
+						</div>
+						<div class="session__card completed">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<div class="session__review">5 <i class="bi bi-star-fill"></i></div>
+							</div>
+						</div>
+						<div class="session__card completed">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<div class="session__review">5 <i class="bi bi-star-fill"></i></div>
+							</div>
+						</div>
+						<div class="session__card completed">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<div class="session__review">5 <i class="bi bi-star-fill"></i></div>
+							</div>
+						</div>
+						<div class="session__card completed">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<div class="session__review">5 <i class="bi bi-star-fill"></i></div>
+							</div>
+						</div> -->
+					</div>
+				</div>
+				<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+					<div class="sessions__container upcoming-container">
+						<!-- <div class="session__card upcoming">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<button class="session__btn">Cancel</button>
+							</div>
+						</div>
+						<div class="session__card upcoming">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<button class="session__btn">Cancel</button>
+							</div>
+						</div>
+						<div class="session__card upcoming">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<button class="session__btn">Cancel</button>
+							</div>
+						</div>
+						<div class="session__card upcoming">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<button class="session__btn">Cancel</button>
+							</div>
+						</div>
+						<div class="session__card upcoming">
+							<div class="session__photo">
+								<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+								<p class="session__name">Ava Lenredn</p>
+								<p class="session__info">27.02.204 14:00 - 15:00</p>
+								<button class="session__btn">Cancel</button>
+							</div>
+						</div> -->
+					</div>
+				</div>
+			 </div>
+		</div>
+	</main>
+	
+	
+
+	<footer class="footer bg-dark text-light py-3">
+		<div class="container text-center">
+			<div class="footer__naming mb-4">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="footer__logo" width="50">
+			</div>
+			<div class="footer__contacts mb-4">
+				<ul class="socials__list list-inline">
+					<li class="social inst list-inline-item"><i class="bi bi-instagram"></i></li>
+					<li class="social x list-inline-item"><i class="bi bi-twitter-x"></i></li>
+					<li class="social link list-inline-item"><i class="bi bi-linkedin"></i></li>
+					<li class="social facebook list-inline-item"><i class="bi bi-facebook"></i></li>
+				</ul>
+			</div>
+			<div class="copyright mt-4">
+				<p class="small">© 2025 ClarityCare. All Rights Reserved.</p>
+				<p class="small">This is a student project and does not represent real medical services.</p>
+			</div>
+		</div>
+	</footer>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/cookieManager.js"></script>
+	<script src="js/client.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+
+			
+			setInfo();
+
+			document.querySelector('.profile__image').addEventListener('click', () => {
+				document.getElementById('photoInput').click();
+			});
+
+			document.getElementById('photoInput').addEventListener('change', (e) => {
+				const file = e.target.files[0];
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = function(event) {
+							document.querySelector('.profile__image').src = event.target.result;
+							localStorage.setItem('userPhoto', JSON.stringify(event.target.result));
+					};
+					reader.readAsDataURL(file);
+				}
+			})
+
+			document.querySelector('.profile__form').addEventListener('submit', (e) => {
+				e.preventDefault();
+				changeInfo().then(setInfo); 
+			});
+
+			document.querySelector('.history-btn').addEventListener('click', () => {
+				document.querySelector('[data-bs-target="#profile-tab-pane"]').click();
+			});
+
+			document.querySelector('[data-bs-target="#profile-tab-pane"]').addEventListener('shown.bs.tab', () => {
+				renderCompletedSessions();
+			});
+
+			document.querySelector('[data-bs-target="#contact-tab-pane"]').addEventListener('shown.bs.tab', () => {
+				renderUpcomingSessions();
+				
+				document.querySelectorAll('.session__btn').forEach(btn => {
+					btn.addEventListener('click', (e) => {cancelSession(e)});
+				})
+			});
+
+			
+			
+			
+		})
+		
+	</script>
+</body>
+</html>

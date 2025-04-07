@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Overpass:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&family=Space+Grotesk:wght@300..700&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+	<script src="js/cookieManager.js"></script>
+
+	<title>ClarityCare</title>
+</head>
+<body>
+	<header class="bg-light py-3">
+		<nav class="navbar navbar-expand-lg navbar-light container">
+			<a href="#" class="navbar-brand">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="nav__logo" width="50">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a href="index.html" class="nav-link">Home</a>
+					</li>
+					<li class="nav-item">
+						<a href="#about" class="nav-link">About</a>
+					</li>
+					<li class="nav-item">
+						<a href="#therapists" class="nav-link">Our Therapists</a>
+					</li>
+					<li><a href="login.html" class="btn btn-primary ms-3" data-login>Log In</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<section class="section-hero text-center bg-light">
+			<h1 class="hero__title display-4">"Find clarity. Feel better."</h1>
+			<p class="hero__text lead">Professional mental health support at your fingertips.</p>
+			<button class="btn btn-primary btn-lg">Talk to a Therapist</button>
+		</section>
+
+		<section class="section-advantages py-5">
+			<div class="container text-center">
+				<h2 class="title mb-4">We Care About Your Mental Well-being</h2>
+				<p class="text mb-5">Join thousands who have taken a step toward a healthier mind.</p>
+				<div class="row">
+					<div class="col-md-3 mb-4">
+						<div class="advantages__item h-100">
+							<img src="images/support.svg" alt="Support illustration" class="advantages__img mb-2 img-fluid">
+							<h3 class="title">💙 Personalized Support</h3>
+							<p class="text">Therapy designed for your unique journey</p>
+						</div>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="advantages__item h-100">
+							<img src="images/safe.svg" alt="Safety illustration" class="advantages__img mb-2 img-fluid">
+							<h3 class="title">🔒 Safe & Private</h3>
+							<p class="text">Encrypted conversations with licensed experts</p>
+						</div>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="advantages__item h-100">
+							<img src="images/time.svg" alt="Clock illustration" class="advantages__img mb-2 img-fluid">
+							<h3 class="title">⏳ No Waiting Lists</h3>
+							<p class="text">Get help when you need it, not weeks later</p>
+						</div>
+					</div>
+					<div class="col-md-3 mb-4">
+						<div class="advantages__item h-100">
+							<img src="images/money.svg" alt="Savings illustration" class="advantages__img mb-2 img-fluid">
+							<h3 class="title">💰 Budget-Friendly Options</h3>
+							<p class="text">Mental health support should be accessible</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section-how py-5 bg-light" id="about">
+			<div class="container text-center">
+				<h2 class="title mb-4">How It Works</h2>
+				<p class="text mb-5">Get started with our simple, 3-step process.</p>
+				<div class="row steps__row">
+					<div class="col-md-3 mb-4 step small">
+						<div class="steps__step">
+							<span class="step__num display-4">1</span>
+							<h3 class="step__title">Sign Up</h3>
+							<p class="step__text">Create your account in just a few clicks.</p>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4 step large">
+						<div class="steps__step">
+							<span class="step__num display-4">2</span>
+							<h3 class="step__title">Choose a Therapist</h3>
+							<p class="step__text">Find the right professional based on your needs.</p>
+						</div>
+					</div>
+					<div class="col-md-3 mb-4 step small">
+						<div class="steps__step">
+							<span class="step__num display-4">3</span>
+							<h3 class="step__title">Book a Session</h3>
+							<p class="step__text">Pick a convenient time for your online consultation.</p>
+						</div>
+					</div>
+				</div>
+				<a href="#" class="btn btn-primary btn-lg">Get Started</a>
+			</div>
+		</section>
+
+
+		<section class="section-therapists py-5" id="therapists">
+			<div class="container text-center">
+				<h2 class="title mb-4">Meet Our Therapists</h2>
+				<p class="text mb-5">Find the right professional for your needs.</p>
+
+				<div class="modal fade" id="bookingModal" tabindex="-1">
+					<div class="modal-dialog">
+					  <div class="modal-content">
+						 <div class="modal-header">
+							<h5 class="modal-title">Available Sessions</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+						 </div>
+						 <div class="modal-body">
+						 </div>
+					  </div>
+					</div>
+				 </div>
+
+				<div class="row therapist-container">
+					<!-- <div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/emily.jpg" alt="Threapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Emily Carter</h3>
+							<p class="therapists__field">Cognitive Behavioral Therapist</p>
+							<hr>
+							<p class="therapist__motto">"Helping you find peace and clarity."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/michael.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Michael Thompson</h3>
+							<p class="therapists__field">Clinical Psychologist</p>
+							<hr>
+							<p class="therapist__motto">"Guiding through life's challenges with empathy."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/olivia.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Olivia Martinez</h3>
+							<p class="therapists__field">Relationship & Family Counselor</p>
+							<hr>
+							<p class="therapist__motto">"Building stronger connections, one step at a time."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/james.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. James Robinson</h3>
+							<p class="therapists__field">Anxiety & Stress Management Specialist</p>
+							<hr>
+							<p class="therapist__motto">"Helping you regain control over your thoughts."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/sophia.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Sophia Lee</h3>
+							<p class="therapists__field">Trauma & PTSD Specialist</p>
+							<hr>
+							<p class="therapist__motto">"Healing is possible, and I'm here to help."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/daniel.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Daniel Brown</h3>
+							<p class="therapists__field">Mindfulness & Meditation Coach</p>
+							<hr>
+							<p class="therapist__motto">"Find balance within yourself."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/ava.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Ava Wilson</h3>
+							<p class="therapists__field">Depression & Mood Disorders Expert</p>
+							<hr>
+							<p class="therapist__motto">"You don’t have to go through this alone."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/william.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. William Harris</h3>
+							<p class="therapists__field">Work & Career Psychologist</p>
+							<hr>
+							<p class="therapist__motto">"Unlock your full professional potential."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div>
+					<div class="col-md-4 mb-4">
+						<div class="therapists__item h-100">
+							<img src="images/isabella.jpg" alt="Therapist photo" class="therapists__img img-fluid mb-3" width="150">
+							<h3 class="therapists__name">Dr. Isabella Green</h3>
+							<p class="therapists__field">Self-Esteem & Personal Growth Coach</p>
+							<hr>
+							<p class="therapist__motto">"Helping you become the best version of yourself."</p>
+							<a href="#" class="therapist__btn btn btn-outline-primary">Book a Session</a>
+						</div>
+					</div> -->
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer bg-dark text-light py-5">
+		<div class="container text-center">
+			<div class="footer__naming mb-4">
+				<img src="./images/logo.png" alt="ClarityCare logo" class="footer__logo mb-1" width="50">
+				<p class="footer__label">Your journey to mental well-being starts here.</p>
+			</div>
+			<nav class="nav mb-4 justify-content-center">
+				<ul class="nav__list list-inline">
+					<li class="nav__item list-inline-item">
+						<a href="index.html" class="nav__link text-light">Home</a>
+					</li>
+					<li class="nav__item list-inline-item">
+						<a href="#about" class="nav__link text-light">About</a>
+					</li>
+					<li class="nav__item list-inline-item">
+						<a href="#therapists" class="nav__link text-light">Our Therapists</a>
+					</li>
+				</ul>
+			</nav>
+			<div class="footer__contacts mb-4">
+				<p class="email">support@claritycare.com</p>
+				<p class="number">+420 420 420 420</p>
+				<ul class="socials__list list-inline">
+					<li class="social inst list-inline-item"><i class="bi bi-instagram"></i></li>
+					<li class="social x list-inline-item"><i class="bi bi-twitter-x"></i></li>
+					<li class="social link list-inline-item"><i class="bi bi-linkedin"></i></li>
+					<li class="social facebook list-inline-item"><i class="bi bi-facebook"></i></li>
+				</ul>
+			</div>
+			<ul class="policy__list list-inline">
+				<li class="policy__item list-inline-item"><a href="#">Privacy Policy</a></li>
+				<li class="policy__item list-inline-item"><a href="#">Terms & Conditions</a></li>
+				<li class="policy__item list-inline-item"><a href="#">Cookies Policy</a></li>
+			</ul>
+			<div class="copyright mt-4">
+				<p class="small">© 2025 ClarityCare. All Rights Reserved.</p>
+				<p class="small">This is a student project and does not represent real medical services.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/main.js"></script>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			if(getCookie('email') !== null){
+				updateMenu();
+			} 
+
+			renderPsychologist();
+
+			const bookBtns = document.querySelectorAll('.therapist__btn');
+
+			bookBtns.forEach(btn => {
+				btn.addEventListener('click', (e) => {
+					const therapistId = e.target.getAttribute('data-id');
+					bookSession(therapistId);
+				})
+			})
+		})
+	</script>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.nav-link{
+	font-family: 'Cabin', sans-serif;
+}
+
+.dash{
+	text-decoration: underline !important;
+}
+
+button{
+	font-family: 'Raleway', sans-serif !important;
+}
+
+.section-hero{
+	height: 75vh;
+	padding: 15rem 0;
+	box-shadow: 0px 15px 15px #f8f9fa;
+}
+
+.section-hero::before, .section-hero::after {
+	content: '';
+	position: absolute;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(82,113,255,0.5) 0%, rgba(248,249,250,0) 80%);
+	filter: blur(60px);
+	z-index: 1;
+}
+
+.section-hero::before{
+	width: 25rem;
+	height: 25rem;
+	left: 10%;
+	bottom: 25%;
+	opacity: .9;
+}
+
+.section-hero::after{
+	width: 20rem;
+	height: 20rem;
+	right: 10%;
+	top: 10%;
+	opacity: .7;
+}
+
+.hero__title{
+	font-family: 'Raleway', sans-serif !important;
+	font-style: italic;
+	margin-bottom: 1rem;
+}
+
+.hero__text{
+	font-family: 'Cabin', sans-serif;
+	color: #5e5e5ecf;
+	margin-bottom: 3rem;
+}
+
+.section-advantages{
+	background-color: rgba(82,113,255,0.2);
+}
+
+.title{
+	font-family: 'Raleway', sans-serif;
+}
+
+.text{
+	font-family: 'Cabin', sans-serif;
+}
+
+.advantages__img{
+	max-width: 100px !important;
+}
+
+.advantages__item{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	background-color: #f8f9fa;
+	padding: 3rem 1.5rem;
+	box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+}
+
+.step{
+	background-color: #fff;
+	padding: 2rem;
+	border-radius: 50%;
+	box-shadow: 0 0 20px #0d6dfd8f;
+	text-align: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+	aspect-ratio: 1/1;
+	min-width: 300px;
+	cursor: pointer;
+}
+
+.steps__step{
+	width: 90%;
+}
+
+.step.small{
+	width: 18vw;
+}
+
+.step.large{
+	width: 25vw;
+}
+
+.steps__row{
+	align-items: center;
+	justify-content: space-evenly;
+	gap: 1rem;
+	margin: 6rem 0 3rem 0 !important;
+}
+
+.step__num{
+	font-family: 'Cabin', sans-serif;
+	color:#98a2ac;
+}
+
+.step__title{
+	font-family: 'Raleway', sans-serif;
+	font-size: 2rem;
+	font-weight: 600;
+	color: #0d6dfd;
+}
+
+.step__text{
+	font-family: 'Cabin', sans-serif;
+}
+
+.therapists__item{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgba(82, 113, 255, 0.1);
+	padding: 1rem;
+	border-radius: 10px;
+	font-family: 'Cabin', sans-serif;
+}
+
+.therapists__img{
+	width: 90%;
+	border-radius: 7px;
+}
+
+hr{
+	width: 90%;
+	border-top:1px solid #0a0b0d !important;
+}
+
+.therapists__name{
+	font-family: 'Raleway', sans-serif;
+	margin-block: 1rem;
+}
+
+.therapists__field{
+	display: block;
+	background:#0dceaa54;
+	padding: 0.5rem .8rem;
+	border-radius: 20px;
+	font-size: 1.2rem;
+}
+
+.therapist__motto{
+	font-style: italic;
+	font-size: 1rem;
+	margin-bottom: 2rem;
+}
+
+.therapist__btn{
+	font-size: 1.2rem !important;
+	color: #00a184 !important;
+	border-color: #00a184 !important;
+}
+
+.therapist__btn:hover{
+	background-color: #00a184 !important;
+	color: #fff !important;
+}
+ 
+
