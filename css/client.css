@@ -54,6 +54,10 @@ main{
 	margin-bottom: 1rem;
 }
 
+.client-btns{
+	flex-direction: column;
+}
+
 .book-card{
 	margin-top: 1rem;
 	margin-bottom: 2rem;
@@ -75,7 +79,6 @@ main{
 }
 
 .card__btn{
-	display: inline-flex;
 	width: 60%;
 	min-width: 220px;
 	border:none;
@@ -120,6 +123,10 @@ main{
 
 .completed{
 	background-color: #0d6dfd35;
+}
+
+.container{
+	margin-bottom: 2rem !important;
 }
 
 .upcoming{
@@ -185,6 +192,48 @@ main{
 
 .session__btn:hover{
 	background-color: #fd0d5942;
+}
+
+@media(max-width: 991px){
+	.col-8{
+		width: 100% !important;
+	}
+
+	.client-btns{
+		width: 100% !important;
+		flex-direction: row !important;
+		justify-content: space-between !important;
+		align-items: flex-start !important;
+	}
+
+	.client-btns > .row > .col-12{
+		width: 90% !important;
+	}
+
+	.book-card{
+		margin-top: 0;
+	}
+
+}
+
+@media(max-width:768px){
+	.card__btn{
+		width: 100%;
+		min-width: 0;
+		font-size: 16px;
+		padding: 0.9rem 1.5rem;
+	}
+
+	.mt-auto{
+		margin-top: 0 !important;
+	}
+}
+
+@media (max-width: 600px) {
+	.card__btn {
+		font-size: 14px;
+		padding: 0.8rem 1.2rem;
+	}
 }
 
 

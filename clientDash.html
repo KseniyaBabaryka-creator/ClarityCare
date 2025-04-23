@@ -60,12 +60,16 @@
 											<input type="password" class="form-control" id="password">
 											<label for="passwordCheck" class="form-label">Check password</label>
 											<input type="password" class="form-control" id="passwordCheck">
+											<label for="address" class="form-label">Your address</label>
+											<input type="text" class="form-control" id="address">
+											<label for="tel" class="form-label">Your telephone</label>
+											<input type="tel" class="form-control" id="tel">
 											<button type="submit" class="btn btn-primary save-btn">Save changes</button>
 										</form>
 									</div>
 								</div>
 							</div>
-							<div class="col-4 d-flex flex-column">
+							<div class="col-4 d-flex client-btns">
 								<div class="row">
 									<div class="col-12">
 										<div class="card book-card text-left">
@@ -75,7 +79,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row mt-auto">
+								<div class="row">
 									<div class="col-12">
 										<div class="card history-card text-left">
 											<h3 class="card__title">History
@@ -203,6 +207,7 @@
 			</div>
 		</div>
 	</footer>
+
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/cookieManager.js"></script>
 	<script src="js/client.js"></script>
@@ -217,21 +222,47 @@
 				document.getElementById('photoInput').click();
 			});
 
-			document.getElementById('photoInput').addEventListener('change', (e) => {
+			document.getElementById('photoInput').addEventListener('change', async (e) => {
 				const file = e.target.files[0];
 				if (file) {
 					const reader = new FileReader();
 					reader.onload = function(event) {
 							document.querySelector('.profile__image').src = event.target.result;
-							localStorage.setItem('userPhoto', JSON.stringify(event.target.result));
+							
 					};
 					reader.readAsDataURL(file);
+
+					try {
+						const formData = new FormData();
+						formData.append('file', file);
+						formData.append('email', getCookie('email'));
+
+						const response = await fetch('http://localhost:8080/api/attachments/upload', {
+						method: 'POST',
+						body: formData
+						});
+
+						if (!response.ok) {
+						throw new Error('Upload failed');
+						}
+
+						const result = await response.json();
+						console.log('Uploaded:', result);
+					} catch (err) {
+						console.error('Error uploading image:', err);
+						alert('Error on loading photo. Try again.');
+					}
 				}
 			})
 
-			document.querySelector('.profile__form').addEventListener('submit', (e) => {
+			document.querySelector('.profile__form').addEventListener('submit', async (e) => {
 				e.preventDefault();
-				changeInfo().then(setInfo); 
+				try {
+				await changeInfo();
+				await setInfo(); 
+			} catch (err) {
+				console.error('Error during profile update:', err);
+  				}
 			});
 
 			document.querySelector('.history-btn').addEventListener('click', () => {
@@ -245,13 +276,9 @@
 			document.querySelector('[data-bs-target="#contact-tab-pane"]').addEventListener('shown.bs.tab', () => {
 				renderUpcomingSessions();
 				
-				document.querySelectorAll('.session__btn').forEach(btn => {
-					btn.addEventListener('click', (e) => {cancelSession(e)});
-				})
+				
 			});
-
-			
-			
+	
 			
 		})
 		

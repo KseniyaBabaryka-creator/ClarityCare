@@ -69,9 +69,9 @@
 			</div>
 		</div>
 
-		<div class="row gap-4 justify-content-between">
+		<div class="row gap-4 row-container">
 
-			<article class="article__info col-md-3 p-4">
+			<article class="article__info col-sm-12 col-md-6 col-lg-3 p-4">
 				<img src="" alt="Psychologist photo" class="info__photo img-fluid">
 				<p class="info__name"></p>
 				<p class="info__item">Experience: <span class="exp"></span></p>
@@ -89,7 +89,7 @@
 						  </div>
 						  <div class="modal-body">
 								<div id="termsContainer">
-									 <!-- Здесь будут генерироваться input'ы для редактирования -->
+									 
 								</div>
 								<button id="addTermBtn" class="btn btn-outline-primary mt-3">Add Term</button>
 						  </div>
@@ -102,45 +102,22 @@
 		  </div>
 		  
 	
-			<article class="consultations col-md-3 p-4">
+			<article class="consultations col-sm-12 col-md-6 col-lg-3 p-4">
 				<h3 class="article__title">Free terms</h3>
 				<ul class="cons__list">
 				</ul>
 				<button class="cons__btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#editTermsModal">Edit</button>
 			</article>
 	
-			<article class="completed col-md-3 p-4">
+			<article class="completed col-sm-12 col-md-6 col-lg-3 p-4">
 				<h3 class="article__title">Completed sessions</h3>
 				<ul class="completed__list">
-					<!-- <li class="completed__list-item">
-						<p class="completed__client">Anna Petrova</p>
-						<span class="completed__date">20.01.2025</span>
-						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
-						<p class="completed__time">11:00 - 12:00</p>
-					</li>
-					<li class="completed__list-item">
-						<p class="completed__client">Anna Petrova</p>
-						<span class="completed__date">20.01.2025</span>
-						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
-						<p class="completed__time">11:00 - 12:00</p>
-					</li>
-					<li class="completed__list-item">
-						<p class="completed__client">Anna Petrova</p>
-						<span class="completed__date">20.01.2025</span>
-						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
-						<p class="completed__time">11:00 - 12:00</p>
-					</li>
-					<li class="completed__list-item">
-						<p class="completed__client">Anna Petrova</p>
-						<span class="completed__date">20.01.2025</span>
-						<p class="review">Review: 5 <i class="bi bi-star-fill"></i></p>
-						<p class="completed__time">11:00 - 12:00</p>
-					</li> -->
+					
 				</ul>
 				<button class="completed__btn btn btn-primary">Show more</button>
 			</article>
 	
-			<article class="upcoming col-md-3 p-4">
+			<article class="upcoming col-sm-12 col-md-6 col-lg-3 p-4">
 				<h3 class="article__title">Upcoming sessions</h3>
 				<ul class="upcoming__list">
 					<!-- <li class="upcoming__list-item">
@@ -212,6 +189,7 @@
 		</div>
 	</footer>
 
+
 	<script>
 		document.addEventListener('DOMContentLoaded', () => {
 
@@ -227,45 +205,61 @@
 			keyboard: false
 			});
 
-		if(!isProfileComplete()){
-			profileModal.show();
-		}
-
 		const currentUserEmail = getCookie('email');
-		const users = JSON.parse(localStorage.getItem('users')) || [];
 
-		const currentUser = users.find(user => user.email === currentUserEmail);
+		fetch(`http://localhost:8080/api/psychologists/by-email?email=${currentUserEmail}`)
+        .then(response => response.json())
+        .then(data => {
+            const currentUser = data;
+				console.log(currentUser);
 
-		if(currentUser && currentUser.role === 'psychologist'){
-			document.querySelector('.info__name').textContent = `Dr. ${currentUser.name}`
-		}
+            if (currentUser && currentUser.role === 'psychologist') {
+                document.querySelector('.info__name').textContent = `Dr. ${currentUser.name}`;
+            }
 
-		loadProfile(currentUser.name);
+				if (!isProfileComplete(currentUser)) {
+                profileModal.show();
+            }
 
-		document.getElementById('profileForm').addEventListener('submit', (e) => {
-			e.preventDefault();
+            loadProfile(currentUser);
+				
+            
+            document.getElementById('profileForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const form = document.getElementById('profileForm');
+                const formData = new FormData(form);
 
-			const form = document.getElementById('profileForm');
-			const formData = new FormData(form);
+                if (!formData.get('profilePhoto') || formData.get('profilePhoto').size === 0) {
+                    alert("Pleasem choose a profile picture.");
+                    return;
+                }
 
-			if (!formData.get('profilePhoto') || formData.get('profilePhoto').size === 0) {
-				alert("Пожалуйста, выберите фото перед сохранением.");
-				return;
-			}
+                saveProfile(formData, currentUser)
+                    .then(() => {
+                        profileModal.hide();
+                        loadProfile(currentUser);
+                    })
+                    .catch(error => console.error("Error on saving profile:", error));
+            });
 
-			saveProfile(formData, currentUser.name)
-				.then(() => {
+				renderCompleted(currentUser.idUser);
 
-					const profile = JSON.parse(localStorage.getItem('profile'));
+				renderUpcoming(currentUser.idUser);
+        })
+        .catch(error => {
+            console.error('Error on rendering psycholog:', error);
+        });
 
-					profileModal.hide();
-					
-					loadProfile();
+
+		  fetch('http://localhost:8080/api/hours/getAll')
+			.then(response => response.json())
+			.then(data => {
+				updateTerms(data);
 			})
-			.catch(error => console.error("Error on saving profile:", error));
-		});
-
-		updateTerms(JSON.parse(localStorage.getItem('terms')) || []);
+			.catch((error) => {
+				console.error('Error:', error);
+			});
+		
 
 
 		const editTermsModal = new bootstrap.Modal(document.getElementById("editTermsModal"));
@@ -280,16 +274,14 @@
 		document.getElementById('saveTermsBtn').addEventListener('click', () => {
 			saveTerms();
 			editTermsModal.hide();
-		
+
 		});
 
-		renderCompleted(currentUser.name);
+		
 
-		renderUpcoming(currentUser.name);
-
-		hideSessions(document.querySelectorAll('.completed__list-item'));
+		
 		const upcomingSessions = document.querySelectorAll('.upcoming__list-item');
-		hideSessions(upcomingSessions);
+		
 
 		const compBtn = document.querySelector('.completed__btn');
 		const upcBtn = document.querySelector('.upcoming__btn');
@@ -315,6 +307,11 @@
 				hideSessions(document.querySelectorAll('.upcoming__list-item'));
 			}
 		})
+
+		setTimeout(() => {
+		hideSessions(document.querySelectorAll('.upcoming__list-item'));
+		hideSessions(document.querySelectorAll('.completed__list-item'));
+	}, 100);
 
 		})
 	</script>

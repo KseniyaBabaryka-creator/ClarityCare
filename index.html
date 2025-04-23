@@ -42,7 +42,7 @@
 		<section class="section-hero text-center bg-light">
 			<h1 class="hero__title display-4">"Find clarity. Feel better."</h1>
 			<p class="hero__text lead">Professional mental health support at your fingertips.</p>
-			<button class="btn btn-primary btn-lg">Talk to a Therapist</button>
+			<a href="#therapists" class="btn btn-primary btn-lg">Talk to a Therapist</a>
 		</section>
 
 		<section class="section-advantages py-5">
@@ -276,16 +276,19 @@
 				updateMenu();
 			} 
 
-			renderPsychologist();
+			let psychologist = [];
 
-			const bookBtns = document.querySelectorAll('.therapist__btn');
-
-			bookBtns.forEach(btn => {
-				btn.addEventListener('click', (e) => {
-					const therapistId = e.target.getAttribute('data-id');
-					bookSession(therapistId);
-				})
+			fetch('http://localhost:8080/api/psychologists/top-rated?limitCount=10')
+			.then(response => response.json())
+			.then(data => {
+				console.log(data)
+				renderPsychologist(data); 
 			})
+			.catch(error => console.error('Error loading top-rated psychologists:', error));
+
+
+
+			
 		})
 	</script>
 

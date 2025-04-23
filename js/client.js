@@ -1,143 +1,11 @@
 const login = document.querySelector('.profile__login');
 const usernameInput = document.getElementById('name'); 
-let users = JSON.parse(localStorage.getItem('users')) || [];
 const passwordInput = document.getElementById('password');
 const checkPass = document.getElementById('passwordCheck');
+const address = document.getElementById('address');
+const phone = document.getElementById('tel');
+const userEmail = getCookie('email');
 
-const sessions = [
-	{
-	  id: 1,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Emily Carter',
-	  date: new Date(2025, 4, 10).toLocaleDateString(), // 10 мая 2025
-	  startTime: '15:00',
-	  endTime: '16:00',
-	  status: 'upcoming',
-	  rate: null
-	},
-	{
-	  id: 2,
-	  client: 'john.doe@mail.com', // изменено
-	  psycholog: 'Michael Tompson',
-	  date: new Date(2024, 11, 9).toLocaleDateString(), // 9 декабря 2024
-	  startTime: '13:00',
-	  endTime: '14:00',
-	  status: 'cancelled',
-	  rate: null
-	},
-	{
-	  id: 3,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Isabella Green',
-	  date: new Date(2025, 11, 3).toLocaleDateString(), // 3 декабря 2025
-	  startTime: '11:00',
-	  endTime: '12:00',
-	  status: 'completed',
-	  rate: null
-	},
-	{
-	  id: 4,
-	  client: 'mary.smith@mail.com', // изменено
-	  psycholog: 'Sophia Lee',
-	  date: new Date(2025, 5, 15).toLocaleDateString(), // 15 июня 2025
-	  startTime: '10:00',
-	  endTime: '11:00',
-	  status: 'upcoming',
-	  rate: null
-	},
-	{
-		id: 5,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'James Robinson',
-	  date: new Date(2024, 9, 20).toLocaleDateString(), // 20 октября 2024
-	  startTime: '09:00',
-	  endTime: '10:00',
-	  status: 'completed',
-	  rate: 5
-	},
-	{
-		id: 6,
-	  client: 'robert.johnson@mail.com', // изменено
-	  psycholog: 'Daniel Brown',
-	  date: new Date(2025, 6, 25).toLocaleDateString(), // 25 июля 2025
-	  startTime: '14:00',
-	  endTime: '15:00',
-	  status: 'upcoming',
-	  rate: null
-	},
-	{
-		id: 7,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Ava Wilson',
-	  date: new Date(2025, 7, 5).toLocaleDateString(), // 5 августа 2025
-	  startTime: '16:00',
-	  endTime: '17:00',
-	  status: 'cancelled',
-	  rate: null
-	},
-	{
-		id: 8,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Olivia Martinez',
-	  date: new Date(2025, 2, 28).toLocaleDateString(), // 28 марта 2025
-	  startTime: '11:30',
-	  endTime: '12:30',
-	  status: 'completed',
-	  rate: 4
-	},
-	{
-		id: 9,
-	  client: 'john.doe@mail.com', // изменено
-	  psycholog: 'Liam Smith',
-	  date: new Date(2024, 10, 15).toLocaleDateString(), // 15 ноября 2024
-	  startTime: '12:00',
-	  endTime: '13:00',
-	  status: 'completed',
-	  rate: 3
-	},
-	{
-		id: 10,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Noah Johnson',
-	  date: new Date(2025, 3, 22).toLocaleDateString(), // 22 апреля 2025
-	  startTime: '15:30',
-	  endTime: '16:30',
-	  status: 'upcoming',
-	  rate: null
-	},
-	{
-		id: 11,
-	  client: 'mary.smith@mail.com', // изменено
-	  psycholog: 'Mia Williams',
-	  date: new Date(2025, 1, 18).toLocaleDateString(), // 18 февраля 2025
-	  startTime: '10:30',
-	  endTime: '11:30',
-	  status: 'completed',
-	  rate: 5
-	},
-	{
-		id: 12,
-	  client: 'eliska1234@gmail.com',
-	  psycholog: 'Emma Jones',
-	  date: new Date(2024, 8, 10).toLocaleDateString(), // 10 сентября 2024
-	  startTime: '08:00',
-	  endTime: '09:00',
-	  status: 'completed',
-	  rate: 4
-	},
-	{
-		id: 13,
-	  client: 'robert.johnson@mail.com', // изменено
-	  psycholog: 'Olivia Davis',
-	  date: new Date(2025, 0, 5).toLocaleDateString(), // 5 января 2025
-	  startTime: '14:30',
-	  endTime: '15:30',
-	  status: 'upcoming',
-	  rate: null
-	}
- ];
-
-localStorage.setItem('sessions',JSON.stringify(sessions));
 
 async function hashPassword(pass, usname) {
   const encoder = new TextEncoder();
@@ -168,18 +36,46 @@ async function hashPassword(pass, usname) {
 }
 
 
-function setInfo() {
-  const photo = JSON.parse(localStorage.getItem('userPhoto')) || "images/default.png";
-  document.querySelector('.profile__image').src = photo;
-  login.textContent = `Your login: ${getCookie('email')}`;
-  passwordInput.value = `${getCookie('password')}`;
-  checkPass.value = `${getCookie('password')}`;
+async function setInfo() {
+	await fetch('http://localhost:8080/api/users')
+	.then(response => response.json())
+	.then(users => {
+	  console.log(users); 
+	  users.forEach(user => {
+		if (user.email === userEmail) {
+		  usernameInput.value = user.name;
+		}
+	 });
+	})
+	.catch(error => console.error('Error on loading users', error));
 
-  users.forEach(user => {
-    if (user.email === getCookie('email')) {
-      usernameInput.value = user.name;
-    }
-  });
+	await fetch('http://localhost:8080/api/clients')
+	.then(response => response.json())
+	.then(clients => {
+	  const client = clients.find(c => c.id_user === userEmail);
+	  if(client.address){address.value = client.address};
+	  if(client.phone){phone.value = client.phone};
+	})
+	.catch(error => console.error('Error on loading users', error));
+
+	
+	login.textContent = `Your login: ${userEmail}`;
+	passwordInput.value = `${getCookie('password')}`;
+	checkPass.value = `${getCookie('password')}`;
+
+	fetch(`http://localhost:8080/api/attachments/by-user?email=${userEmail}`)
+	.then(response => {
+		if (!response.ok) throw new Error('Not found');
+		return response.text();
+	})
+	.then(photoUrl => {
+			document.querySelector('.profile__image').src = `http://localhost:8080${photoUrl}`;
+	})
+	.catch(error => {
+			console.error("Error fetching profile photo:", error);
+			document.querySelector('.profile__image').src = "images/default.png";
+	});
+
 }
 
 
@@ -189,28 +85,54 @@ async function changeInfo() {
     return;
   }
 
-
-  const currentEmail = getCookie('email');
-  const index = users.findIndex(u => u.email === currentEmail);
-  if (index === -1) {
-    alert('User not found!');
-    return;
-  }
-
-  
-  users[index].name = usernameInput.value;
-
   try {
     const newHashedPass = await hashPassword(passwordInput.value, usernameInput.value);
-    users[index].password = newHashedPass;
+
+
+	 const updatedUser = {
+		email: userEmail,
+      name: usernameInput.value,
+      password: newHashedPass
+    };
+
+	 const updatedClient = {
+		id_user: userEmail,
+      fullname: usernameInput.value,
+		phone: phone.value,
+		address: address.value
+    };
+
+	 const response = await fetch(`http://localhost:8080/api/users/${userEmail}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedUser)
+    });
+
+	 if (!response.ok) {
+      throw new Error('Error on updating user');
+    }
+
+	 const clientResponse = await fetch(`http://localhost:8080/api/clients/${userEmail}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updatedClient)
+    });
+
+	 if (!clientResponse.ok) {
+      throw new Error('Error on updating client');
+    }
 
     
     deleteCookie('password');
     setCookie('password', passwordInput.value);
 
-    localStorage.setItem('users', JSON.stringify(users));
 
     alert('Information was successfully changed!');
+
   } catch (err) {
     console.error(err);
     alert('Something went wrong! Try again, please...');
@@ -218,50 +140,76 @@ async function changeInfo() {
 }
 
 function renderCompletedSessions(){
-	const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+	
 	const sessionsContainer = document.querySelector('.completed-container');
 	if (!sessionsContainer) {
 		console.error('Container for sessions not found');
 		return;
-  }
-
+   }
 	sessionsContainer.innerHTML = "";
 
-	if(sessions){
-		const completedSessions = sessions.filter(ses => {
-			return ses.client === getCookie('email') && ses.status === 'completed';
-		});
+	fetch(`http://localhost:8080/api/appointments`)
+	.then(response => {
 
-		if(completedSessions){
+		if(!response.ok)throw new Error('Error while getting appointments')
+		return response.json()
+	})
+	.then(data => {
+
+		const sessions = Array.from(data);
+		
+		if(sessions.length){
+			const completedSessions = sessions.filter(ses => {
+				return ses.client_id === getCookie('email') && ses.status.description === 'Completed';
+			});
 			
+	
+			if(completedSessions.length){
+				
+				completedSessions.forEach(ses => {
+					const sesCard = document.createElement('div');
+					sesCard.classList.add('session__card', 'completed');
+					sesCard.setAttribute('data-id', ses.id);
+					fetch(`http://localhost:8080/api/psychologists`)
+					.then(response => {
+						if(!response.ok) throw new Error('Error on fetching psychologists')
+						return response.json();
+					})
+					.then(data => {
+						const psychologists = Array.from(data);
+						const psycholog = psychologists.find(p => p.idUser === ses.psychologist_id);
+						sesCard.innerHTML = `
+						<div class="session__photo">
+							<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+						</div>
+							<p class="session__name">${psycholog.name}</p>
+							<p class="session__info">${ses.date}</p> 
+							<p class="session__info">${ses.start_time} - ${ses.end_time}</p>
+					`;
 
-			completedSessions.forEach(ses => {
-				const sesCard = document.createElement('div');
-				sesCard.classList.add('session__card', 'completed');
-				sesCard.setAttribute('data-id', ses.id);
-				sesCard.innerHTML = `
-					<div class="session__photo">
-						<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
-					</div>
-						<p class="session__name">${ses.psycholog}</p>
-						<p class="session__info">${ses.date}</p> 
-						<p class="session__info">${ses.startTime} - ${ses.endTime}</p>
-				`;
 
-				const ratingElement = renderRating(ses.rate, ses.id, sessions);
-				sesCard.appendChild(ratingElement);
-
-				sessionsContainer.appendChild(sesCard);
-			})
+					const ratingElement = renderRating(ses.rate, ses.id, ses.psychologist_id, ses.client_id);
+					sesCard.appendChild(ratingElement);
+	
+					sessionsContainer.appendChild(sesCard);
+					})
+					
+	
+					
+				})
+			} else sessionsContainer.innerHTML = `<h2 class='card__title'>You have no completed sessions</h2>`;
 		} else sessionsContainer.innerHTML = `<h2 class='card__title'>You have no completed sessions</h2>`;
-	} else sessionsContainer.innerHTML = `<h2 class='card__title'>You have no completed sessions</h2>`;
+	})
+	.catch(err => {
+		console.error("Error on rendering completed sessions:", err);
+	})
 
 }
 
-function renderRating(rate, id, sessions){
+function renderRating(rate, appointmentId, psychologistId, clientId){
 	const review = document.createElement('div');
 	review.classList.add('session__review');
-	if(rate){
+	if(rate != null){
 		review.innerHTML = `<div class="session__review">${rate} <i class="bi bi-star-fill"></i></div>`
 	} else {
 		const inputRate = document.createElement('input');
@@ -285,7 +233,7 @@ function renderRating(rate, id, sessions){
 		review.appendChild(inputRate);
 		review.appendChild(rateBtn);
 
-		rateBtn.addEventListener('click', (e)=>{
+		rateBtn.addEventListener('click', async (e)=>{
 			e.preventDefault();
 			const rateValue = inputRate.value;
 
@@ -294,69 +242,128 @@ function renderRating(rate, id, sessions){
 				return;
 			}
 
-			const session = sessions.find(ses => ses.id === id);
-			if (!session) {
-				console.error("Session not found:", id);
-				return;
-			}
-			session.rate = rateValue;
-			localStorage.setItem('sessions', JSON.stringify(sessions));
+			console.log("Submitting rating with the following data:", {
+				id_psycholog: psychologistId,
+				id_client: clientId,
+				id_appointment: appointmentId,
+				rate: rateValue
+		  });
 
-			review.innerHTML = `<div class="session__review">${rateValue} <i class="bi bi-star-fill"></i></div>`
+			try {
+				const response = await fetch('http://localhost:8080/api/reviews', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						id_psycholog: psychologistId,
+						id_client: clientId,
+						id_appointment: appointmentId,
+						rate: rateValue
+					})
+				});
+				if (!response.ok) throw new Error('Failed to submit rating');
+
+				review.innerHTML = `<div class="session__review">${rateValue} <i class="bi bi-star-fill"></i></div>`;
+			} catch (err) {
+				console.error("Error submitting rating:", err);
+				alert("Failed to submit rating");
+			}
 		})
 	}
 
 	return review;
 }
 
-function renderUpcomingSessions(){
-	const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
+async function renderUpcomingSessions(){
 	const sessionsContainer = document.querySelector('.upcoming-container');
 	if (!sessionsContainer) {
 		console.error('Container for sessions not found');
 		return;
-  }
+	}
 
 	sessionsContainer.innerHTML = "";
 
-	if(sessions){
+	try {
+		const response = await fetch(`http://localhost:8080/api/appointments`);
+		if (!response.ok) throw new Error('Error while getting appointments');
+
+		const data = await response.json();
+		const sessions = Array.from(data);
+
+		if (!sessions.length) {
+			sessionsContainer.innerHTML = `<h2 class='card__title'>You have no upcoming sessions</h2>`;
+			return;
+		}
+
 		const upcomingSessions = sessions.filter(ses => {
-			return ses.client === getCookie('email') && ses.status === 'upcoming';
+			return ses.client_id === getCookie('email') && 
+				(ses.status.description === 'Confirmed' || ses.status.description === 'Pending');
 		});
 
-		if(upcomingSessions){
-			
+		if (!upcomingSessions.length) {
+			sessionsContainer.innerHTML = `<h2 class='card__title'>You have no upcoming sessions</h2>`;
+			return;
+		}
 
-			upcomingSessions.forEach(ses => {
-				const sesCard = document.createElement('div');
-				sesCard.classList.add('session__card', 'upcoming');
-				sesCard.setAttribute('data-id', ses.id);
-				sesCard.innerHTML = `
-					<div class="session__photo">
-						<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
-					</div>
-						<p class="session__name">${ses.psycholog}</p>
-						<p class="session__info">${ses.date}</p>
-						<p class="session__info">${ses.startTime} - ${ses.endTime}</p>
-						<button class="session__btn">Cancel</button>
-				`;
-				sessionsContainer.appendChild(sesCard);
-			})
-		} else sessionsContainer.innerHTML = `<h2 class='card__title'>You have no upcoming sessions</h2>`;
-	} else sessionsContainer.innerHTML = `<h2 class='card__title'>You have no upcoming sessions</h2>`;
+		
+		const psychResponse = await fetch(`http://localhost:8080/api/psychologists`);
+		if (!psychResponse.ok) throw new Error('Error on fetching psychologists');
+		const psychologists = await psychResponse.json();
 
+		upcomingSessions.forEach(ses => {
+			const psycholog = psychologists.find(p => p.idUser === ses.psychologist_id);
+			const sesCard = document.createElement('div');
+			sesCard.classList.add('session__card', 'upcoming');
+			sesCard.setAttribute('data-id', ses.id);
+
+			sesCard.innerHTML = `
+				<div class="session__photo">
+					<img src="images/ava.jpg" alt="Psycholog photo" class="session__img img-fluid">
+				</div>
+				<p class="session__name">${psycholog.name}</p>
+				<p class="session__info">${ses.date}</p>
+				<p class="session__info">${ses.start_time} - ${ses.end_time}</p>
+				<button class="session__btn">Cancel</button>
+			`;
+
+			sessionsContainer.appendChild(sesCard);
+		});
+
+		
+		document.querySelectorAll('.session__btn').forEach(btn => {
+			btn.addEventListener('click', async (e) => {
+				console.log('CANCEL CLICKED');
+				await cancelSession(e);
+			});
+		});
+
+	} catch (err) {
+		console.error('Error in renderUpcomingSessions:', err);
+	}
 }
 
-function cancelSession(e){
-	const sessions = JSON.parse(localStorage.getItem('sessions')) || [];
 
-	const sesCard = e.target.closest('.upcoming');
-	const sesId = parseInt(sesCard.getAttribute('data-id'), 10);
+async function cancelSession(e){
+	const session = e.target.closest('.session__card');
+	const id = session.getAttribute('data-id');
+	try {
+		const res = await fetch(`http://localhost:8080/api/appointments/${id}`, {
+			method: 'DELETE',
+			headers: { 'Content-Type': 'application/json' },
+		});
 
-	const newSessions = sessions.filter(ses => {return ses.id !== sesId});
-	localStorage.setItem('sessions', JSON.stringify(newSessions));
-	sesCard.remove();
-	renderUpcomingSessions();
+		if (!res.ok) throw new Error('Failed to cancel');
+
+		console.log('Appointment canceled');
+
+		
+		session.classList.add('fade-out');
+		setTimeout(() => session.remove(), 300);
+		await renderUpcomingSessions();
+	} catch (err) {
+		console.error(err);
+	}
+
+	
 }
 
 
